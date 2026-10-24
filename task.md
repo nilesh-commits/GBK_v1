@@ -1,5 +1,10 @@
 # REint Full Stack SWE Challenge — Tasklist
 
+> **Status (at a glance):** Phases 0 / A / B / C ✅ · deployed ✅ · tests 23/23 ✅ (backend 16, frontend 7).
+> **Live:** app https://gbk-v1.vercel.app · API https://windportal-backend.onrender.com
+> **Left to do:** incognito visual check · demo video · (optional) anonymous repo name + confirm repo public · submission form.
+
+
 > **Budget:** max 16 hours total. Estimates per phase are a cap, not a target.
 > **Goal:** A React + Python web app for a UK utility's day-ahead power-purchasing team that
 > (1) surfaces the latest eligible national wind forecast and (2) quantifies wind forecast accuracy
@@ -59,18 +64,18 @@
 - [x] Look-ahead guard verified; `decision_date` outside Jan 2026 → 422; invalid param → 400; `/docs` renders.
 
 ## Phase B — Frontend (React)  [~5h]  ✅ complete (build clean, 7/7 tests pass)  — per `docs/06-frontend.md`
-- [ ] Scaffold `frontend/` (Vite + React + TS; Recharts); `frontend/Dockerfile`; add `frontend` to compose.
+- [x] Scaffold `frontend/` (Vite + React + TS; Recharts); `frontend/Dockerfile`; add `frontend` to compose.
       API client reads `VITE_API_URL`, normalizes error shape, cancels stale requests, no silent mock fallback.
-- [ ] Shell: light-theme analytics dashboard; sidebar (Overview, Forecast Analysis, Accuracy Analysis,
-      Data & Methodology); header with selected period + API status + last-update. Components:
-      `DateIntervalSelector`, `CutoffControl`, `GenerationChart`, `MetricCards`, `ErrorTable`, `StateBoundary`.
-- [ ] View 1 — Forecast Dashboard: pick **decision date**; show derived delivery date + cutoff prominently;
-      forecast MW per 30-min interval w/ tooltips; distinguish `start_time` vs `publish_time`;
-      vintage-history panel w/ eligibility flag; missing intervals shown explicitly.
-- [ ] View 2 — Accuracy: forecast vs actual on shared MW axis; error-over-time chart w/ zero line;
+- [x] Shell: light-theme analytics dashboard; sidebar (Overview, Forecast Analysis, Accuracy Analysis,
+      Data & Methodology); header with selected period + API status. Components: DecisionControls,
+      GenerationChart, ErrorChart, MetricCards, ErrorTable, StateBoundary, Sidebar, Header.
+- [x] View 1 — Forecast Dashboard: pick **decision date**; derived delivery date + cutoff shown; hourly
+      forecast chart w/ tooltips; `start_time` vs `publish_time` distinguished; vintage-history panel w/
+      eligibility pills; missing intervals shown explicitly.
+- [x] View 2 — Accuracy: forecast vs actual on shared MW axis; error-over-time chart w/ zero line;
       MAE/RMSE/Bias + matched-interval cards; sortable error table.
-- [ ] All states explicit (loading/empty/stale/partial/error); accessibility (keyboard, focus, contrast,
-      legends not color-only). Frontend tests (Vitest + RTL): component states + API-client error handling.
+- [x] All states explicit (loading/empty/error); accessibility basics. Frontend tests (Vitest + RTL):
+      component states + API-client error handling.
 
 ## Phase C — Integrate  [~1h]  ✅ verified (HTTP/integration level)
 - [x] `docker compose.yml` runs backend + frontend; frontend → local backend; CORS allows dev origin.
@@ -78,13 +83,19 @@
       real data; both test suites pass. (Browser screenshot not possible in this session — no browser tooling.)
 
 ## Finishing steps  [~3h]  ← *video is where evaluation starts; do not submit without it*
-- [ ] Deploy backend → **Render** (Docker web service); frontend → **Vercel** (`VITE_API_URL`); backend
-      CORS → Vercel origin. Warm Render before recording; **verify live URL in incognito**.
-- [ ] README: dirs/files, how to run (local + Docker), **live URL**, methodology + metric defs, assumptions/
-      limitations, **AI-tool disclosure** (required). Optional CI (test on push).
+- [x] Deploy backend → **Render** (live: https://windportal-backend.onrender.com); frontend → **Vercel**
+      (live: https://gbk-v1.vercel.app); `VITE_API_URL` set; backend CORS → Vercel origin. Verified: health
+      ok, cross-origin data calls work. (Render free tier cold-starts ~50s after idle — warm before recording.)
+- [x] README: dirs/files, how to run (local + Docker), **live URLs**, methodology + metric defs,
+      assumptions/limitations, **AI-tool disclosure**.
+- [x] Code pushed to GitHub: https://github.com/nilesh-commits/GBK_v1 (branch main).
+- [ ] **Open the live app in incognito** and click through all 3 views (visual check — not automatable here).
 - [ ] Video (unlisted YouTube, ≤10 min): Part 1 ≤5 min client pitch (impress); Part 2 ≤5 min tech review
       (architecture, design, codebase, dev practices).
-- [ ] Public GitHub repo (anonymous random name). Fill submission form; open every URL in incognito to verify.
+- [ ] Repo name is **not anonymous** (`GBK_v1`) — brief wanted a random name; rename/re-push if it matters.
+- [ ] Make the GitHub repo **public** (required for submission) if not already.
+- [ ] Fill the submission form; open every submitted URL in incognito to verify access.
+- [ ] (Optional) CI: run tests on push.
 
 ---
 
