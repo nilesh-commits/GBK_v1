@@ -7,7 +7,11 @@ A web application for a UK energy utility's **day-ahead electricity purchasing t
 
 Scope is deliberately limited to **Elexon national wind** — FUELHH actuals and WINDFOR forecasts — for purchase **decisions made in January 2026** (day-ahead, so delivery days span 2 Jan – 1 Feb 2026).
 
-> **Status:** runs end-to-end locally (backend + frontend, Dockerized). Not yet deployed — no live URL is claimed until a deployment is verified. See [Deployment](#deployment).
+> **Live:**
+> - **App (frontend):** https://gbk-v1.vercel.app
+> - **API (backend):** https://windportal-backend.onrender.com — health `/api/health`, interactive docs `/docs`
+>
+> The backend runs on Render's free tier and **spins down after ~15 min idle** (first request then takes ~50s to wake). Load the app once to warm it before a demo.
 
 ---
 
@@ -133,7 +137,7 @@ The datasets cover national wind only. The portal quantifies **wind forecast unc
 
 ## Deployment
 
-Planned: **frontend → Vercel** (static build; set `VITE_API_URL` to the backend URL), **backend → Render** (Docker web service; set `CORS_ALLOWED_ORIGINS` to the Vercel origin). Render's free tier cold-starts after idle — warm it before a demo. Nothing is deployed yet; the live URL will be added here once verified in a fresh incognito session. Steps: [docs/08-deployment.md](docs/08-deployment.md).
+Deployed: **frontend → Vercel** (`https://gbk-v1.vercel.app`; root directory `frontend`, env `VITE_API_URL` = the Render URL, set at build time), **backend → Render** (`https://windportal-backend.onrender.com`; Docker web service from [`render.yaml`](render.yaml), runs `scripts/ingest.py` on boot then uvicorn, env `CORS_ALLOWED_ORIGINS=["https://gbk-v1.vercel.app"]`). Render free tier cold-starts after ~15 min idle (~50s wake) — warm it before a demo. Steps: [docs/08-deployment.md](docs/08-deployment.md).
 
 ---
 
