@@ -15,7 +15,7 @@ services:
     plan: free
     region: frankfurt            # closest to UK; change if you prefer
     healthCheckPath: /api/health
-    dockerCommand: sh -c "python scripts/ingest.py || true; uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    dockerCommand: sh start.sh
     envVars:
       # Set this to your Vercel frontend origin AFTER the frontend is deployed,
       # as a JSON array, e.g. ["https://your-app.vercel.app"]. Then redeploy.
