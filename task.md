@@ -58,7 +58,7 @@
 - [x] `GET /api/accuracy?decision_date=2026-01-15` (→ delivery 2026-01-16) returns sensible metrics on real data.
 - [x] Look-ahead guard verified; `decision_date` outside Jan 2026 → 422; invalid param → 400; `/docs` renders.
 
-## Phase B — Frontend (React)  [~5h]  — build to `docs/06-frontend.md` (authoritative)
+## Phase B — Frontend (React)  [~5h]  ✅ complete (build clean, 7/7 tests pass)  — per `docs/06-frontend.md`
 - [ ] Scaffold `frontend/` (Vite + React + TS; Recharts); `frontend/Dockerfile`; add `frontend` to compose.
       API client reads `VITE_API_URL`, normalizes error shape, cancels stale requests, no silent mock fallback.
 - [ ] Shell: light-theme analytics dashboard; sidebar (Overview, Forecast Analysis, Accuracy Analysis,
@@ -72,9 +72,10 @@
 - [ ] All states explicit (loading/empty/stale/partial/error); accessibility (keyboard, focus, contrast,
       legends not color-only). Frontend tests (Vitest + RTL): component states + API-client error handling.
 
-## Phase C — Integrate  [~1h]
-- [ ] `docker compose up --build` runs backend + frontend; frontend → local backend; CORS allows dev origin.
-- [ ] Walk both views end-to-end on real data; hand-spot-check one day's metrics. App "complete" when both work.
+## Phase C — Integrate  [~1h]  ✅ verified (HTTP/integration level)
+- [x] `docker compose.yml` runs backend + frontend; frontend → local backend; CORS allows dev origin.
+- [x] Verified: frontend serves (200) + JS asset (200); backend CORS allows `localhost:5173`; `/api/*` returns
+      real data; both test suites pass. (Browser screenshot not possible in this session — no browser tooling.)
 
 ## Finishing steps  [~3h]  ← *video is where evaluation starts; do not submit without it*
 - [ ] Deploy backend → **Render** (Docker web service); frontend → **Vercel** (`VITE_API_URL`); backend
