@@ -15,13 +15,15 @@
 
 ---
 
-## Phase 0 — Reconcile & save  [~0.5h]
+## Phase 0 — Reconcile & save  [~0.5h]  ✅
 - [x] Reconcile this `task.md` with all confirmed decisions (this rewrite).
-- [ ] Correct `docs/03`, `docs/04`, `docs/05`, `docs/11` to decision-anchored scope + `decision_date` param.
-- [ ] `git init`; add `.gitignore` (`.env`, `data/*.parquet`, `node_modules/`, `__pycache__/`); commit
-      `require.md`, `task.md`, `docs/`, and the original `.docx` before writing any code.
+- [x] Correct `docs/03`, `docs/04`, `docs/05`, `docs/11` to decision-anchored scope + `decision_date` param.
+- [x] `git init`; add `.gitignore`; commit `require.md`, `task.md`, `docs/`, and the original `.docx`.
 
-## Phase A — Backend  [~6h]
+## Phase A — Backend  [~6h]  ✅ complete (16/16 tests pass; verified on real Jan-2026 data)
+> Finding: WINDFOR is **hourly**, FUELHH **half-hourly** — actuals are aggregated to the hourly
+> forecast grid by mean (documented alignment, not interpolation). Sample: decision 2026-01-15 →
+> MAE 858.7, RMSE 1084.8, Bias +396.6 MW, 24/24 matched.
 - [ ] Scaffold `backend/` (FastAPI, uvicorn, httpx, pandas, pyarrow, pytest); `backend/Dockerfile`
       (python:3.11-slim); root `docker-compose.yml` serving backend on `:8000`; `.env.example`.
 - [ ] Config (`app/config.py`, pydantic-settings): `ELEXON_BASE_URL`, cutoff default
@@ -51,10 +53,10 @@
       metrics fixture, join (missing/dup/misaligned, no zero-fill); integration route happy-path + error
       contracts (Elexon mocked); out-of-scope→422, invalid→400.
 
-## ⛒ Gate — backend tests must pass before Phase B
-- [ ] `docker compose run --rm backend pytest` all green (incl. metrics fixture).
-- [ ] `GET /api/accuracy?decision_date=2026-01-15` (→ delivery 2026-01-16) returns sensible metrics on real data.
-- [ ] Look-ahead guard verified; `decision_date` outside Jan 2026 → 422.
+## ⛒ Gate — backend tests must pass before Phase B  ✅ PASSED
+- [x] pytest all green (16/16, incl. metrics fixture).
+- [x] `GET /api/accuracy?decision_date=2026-01-15` (→ delivery 2026-01-16) returns sensible metrics on real data.
+- [x] Look-ahead guard verified; `decision_date` outside Jan 2026 → 422; invalid param → 400; `/docs` renders.
 
 ## Phase B — Frontend (React)  [~5h]  — build to `docs/06-frontend.md` (authoritative)
 - [ ] Scaffold `frontend/` (Vite + React + TS; Recharts); `frontend/Dockerfile`; add `frontend` to compose.

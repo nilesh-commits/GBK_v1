@@ -27,7 +27,7 @@ A single delivery `startTime` typically has **multiple forecast rows** with diff
 ## Units and conventions
 
 - **Units:** generation values are treated as **MW**. All reported metrics are in MW. If ingestion observes values inconsistent with MW, that is flagged (see [10 — Edge Cases](10-edge-cases-and-data-quality.md)), not silently converted.
-- **Interval resolution:** 30 minutes. A full UK day has 48 intervals (with 46/50 on clock-change days — March/October — though January 2026 has no DST change, so all in-scope days have 48).
+- **Interval resolution (verified from the data):** FUELHH **actuals are half-hourly** (48 intervals/day; `startTime` minutes 00 and 30). WINDFOR **forecasts are hourly** (`startTime` minute 00 only; ~24 target intervals/day). The brief describes both at 30-min resolution, but the in-scope WINDFOR data is hourly — confirmed by inspecting the January 2026 payload (all 17,688 forecast rows have minute 00). Forecasts and actuals are therefore compared on the forecast's **hourly grid**: actuals are aggregated to each hour by mean (see [04 — Methodology](04-methodology.md)). January 2026 has no DST change, so all in-scope days are full days.
 - **Time zone:** Elexon timestamps are handled explicitly in **UTC** internally. UK local time (GMT in January) is used only for display labels. Conversions are explicit; see [04 — Methodology](04-methodology.md) and [11 — Assumptions](11-assumptions-and-limitations.md).
 
 ## Scope filter

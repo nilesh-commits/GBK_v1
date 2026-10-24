@@ -11,6 +11,7 @@
 ## Documented assumptions
 
 - **Units** are MW as provided by Elexon; no conversion applied. Inconsistencies are flagged, not converted ([03 — Data Sources](03-data-sources.md)).
+- **Resolution:** WINDFOR is hourly and FUELHH half-hourly (verified from the January 2026 data, contrary to the brief's "30-min" description of both). Accuracy is computed on the forecast's hourly grid, with actuals aggregated to each hour by mean — a documented alignment, not interpolation. If the client expects half-hourly forecast scoring, a half-hourly WINDFOR source would be required.
 - **Default cutoff** is 12:00 Europe/London on the decision day — an explicit assumption carried in configuration and labelled provisional pending answer to open question #1. It is visible in API responses (`cutoff` field) so any score can be re-derived under a different cutoff.
 - **Scope is decision-anchored:** decisions 1–31 January 2026 → delivery days 2 January – 1 February 2026. Ingestion covers FUELHH actuals through 2026-02-01 and WINDFOR vintages published across January 2026. (No late-December vintages — a 1 January delivery was decided in December, out of scope.)
 

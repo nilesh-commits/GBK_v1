@@ -23,7 +23,14 @@ Modelled as: a **decision date *d*** (the in-scope selector, *d* ∈ 1–31 Jan 
 
 ## 2. Joining forecasts to actuals
 
-- Join the selected (eligible) forecast to actuals **by delivery interval `start_time`**.
+**Resolution alignment (verified from the data).** WINDFOR forecasts are published
+at **hourly** resolution; FUELHH actuals are **half-hourly** (see [03 — Data Sources](03-data-sources.md)).
+To compare like-for-like without inventing data, actuals are aggregated to the
+forecast's hourly grid: each hourly bin `[HH:00, HH+1:00)` takes the **mean** of its
+two half-hourly actual values. This is a documented alignment — not interpolation and
+not zero-filling.
+
+- After alignment, join the selected (eligible) forecast to the hour-aggregated actuals **by `start_time`**.
 - Only intervals present in **both** the eligible-forecast set and the actuals set are "matched" and enter metric calculations.
 - Unmatched intervals (missing forecast, or actual not yet available) are excluded and counted separately; they are **never** treated as `0`.
 

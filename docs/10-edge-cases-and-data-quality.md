@@ -14,6 +14,7 @@ Handling is explicit and documented. The governing rule: **never silently treat 
 | **Forecast/actual timestamps don't align** | Only exact interval-key matches are joined; non-aligned intervals are unmatched, not approximated. |
 | **Missing or invalid generation value** | Row treated as missing (not `0`); excluded; logged. |
 | **Unexpected units / timestamp convention** | Flagged during ingestion and logged; not silently converted. Assumptions documented in [03 — Data Sources](03-data-sources.md). |
+| **Forecast/actual resolution mismatch** | Verified real case: WINDFOR is hourly, FUELHH half-hourly. Actuals are aggregated to the hourly forecast grid by mean before joining — a documented alignment, not interpolation (see [04 — Methodology](04-methodology.md)). |
 | **Purchase date outside January 2026** | Rejected at the API with `422 OUT_OF_SCOPE_DATE`. |
 
 ## Upstream (Elexon) failure handling
